@@ -10,7 +10,8 @@ import {
   RefreshControl,
   TouchableOpacity,
 } from "react-native";
-
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import PostItem from "../components/PostItem";
@@ -27,7 +28,7 @@ const RootView = styled.View`
   padding-top: 15px;
 `;
 
-export const Home = () => {
+export const Home = ({ navigation }) => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -60,11 +61,13 @@ export const Home = () => {
           refreshControl={
             <RefreshControl refreshing={isLoading} onRefresh={toFetch} />
           }
-          data={[...items, ...items]}
+          data={[...items]}
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() => {
-                alert("123");
+                navigation.navigate('FullPost', {
+                  id: item.id
+                })
               }}
             >
               <PostItem

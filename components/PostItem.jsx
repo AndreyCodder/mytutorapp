@@ -34,6 +34,13 @@ const Post = styled.View`
       flex: 1;
     `;
 
+const truncSrt = (str) => {
+  if(str.length >= 50){
+    return str.substring(0,50)+"..."
+  }else{
+    return str
+  }
+}
 
 const PostItem = ({title, created, imageUrl}) => {
     return (
@@ -48,8 +55,8 @@ const PostItem = ({title, created, imageUrl}) => {
             }}
           />
           <PostDetails>
-            <PostTitle>{title}</PostTitle>
-            <PostDate>{created}</PostDate>
+            <PostTitle>{truncSrt(title)}</PostTitle>
+            <PostDate>{Date(created)}</PostDate>
           </PostDetails>
         </Post>
       </View>
